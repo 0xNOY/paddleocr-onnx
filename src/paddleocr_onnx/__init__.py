@@ -1,0 +1,1 @@
+from paddleocr_onnx.pocr_onnx import PaddleOcrONNX, get_paddleocr_parameter
