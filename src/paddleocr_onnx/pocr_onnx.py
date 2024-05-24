@@ -23,7 +23,7 @@ def get_paddleocr_parameter():
     paddleocr_parameter = DictDotNotation()
 
     # params for prediction engine
-    paddleocr_parameter.use_gpu = True
+    paddleocr_parameter.use_gpu = False
 
     # params for text detector
     paddleocr_parameter.det_algorithm = "DB"
