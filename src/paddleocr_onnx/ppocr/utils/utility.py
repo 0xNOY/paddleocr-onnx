@@ -37,18 +37,26 @@ def print_dict(d, logger, delimiter=0):
 
 
 def get_check_global_params(mode):
-    check_params = ['use_gpu', 'max_text_length', 'image_shape', \
-                    'image_shape', 'character_type', 'loss_type']
+    check_params = [
+        "use_gpu",
+        "max_text_length",
+        "image_shape",
+        "image_shape",
+        "character_type",
+        "loss_type",
+    ]
     if mode == "train_eval":
-        check_params = check_params + [ \
-            'train_batch_size_per_card', 'test_batch_size_per_card']
+        check_params = check_params + [
+            "train_batch_size_per_card",
+            "test_batch_size_per_card",
+        ]
     elif mode == "test":
-        check_params = check_params + ['test_batch_size_per_card']
+        check_params = check_params + ["test_batch_size_per_card"]
     return check_params
 
 
 def _check_image_file(path):
-    img_end = {'jpg', 'bmp', 'png', 'jpeg', 'rgb', 'tif', 'tiff', 'gif', 'pdf'}
+    img_end = {"jpg", "bmp", "png", "jpeg", "rgb", "tif", "tiff", "gif", "pdf"}
     return any([path.lower().endswith(e) for e in img_end])
 
 
@@ -57,7 +65,7 @@ def get_image_file_list(img_file):
     if img_file is None or not os.path.exists(img_file):
         raise Exception("not found any img file in {}".format(img_file))
 
-    img_end = {'jpg', 'bmp', 'png', 'jpeg', 'rgb', 'tif', 'tiff', 'gif', 'pdf'}
+    img_end = {"jpg", "bmp", "png", "jpeg", "rgb", "tif", "tiff", "gif", "pdf"}
     if os.path.isfile(img_file) and _check_image_file(img_file):
         imgs_lists.append(img_file)
     elif os.path.isdir(img_file):
@@ -72,20 +80,21 @@ def get_image_file_list(img_file):
 
 
 def check_and_read(img_path):
-    if os.path.basename(img_path)[-3:] in ['gif', 'GIF']:
+    if os.path.basename(img_path)[-3:] in ["gif", "GIF"]:
         gif = cv2.VideoCapture(img_path)
         ret, frame = gif.read()
         if not ret:
-            logger = logging.getLogger('ppocr')
+            logger = logging.getLogger("ppocr")
             logger.info("Cannot read {}. This gif image maybe corrupted.")
             return None, False
         if len(frame.shape) == 2 or frame.shape[-1] == 1:
             frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2RGB)
         imgvalue = frame[:, :, ::-1]
         return imgvalue, True, False
-    elif os.path.basename(img_path)[-3:] in ['pdf']:
+    elif os.path.basename(img_path)[-3:] in ["pdf"]:
         import fitz
         from PIL import Image
+
         imgs = []
         with fitz.open(img_path) as pdf:
             for pg in range(0, pdf.pageCount):
@@ -105,7 +114,7 @@ def check_and_read(img_path):
 
 
 def load_vqa_bio_label_maps(label_map_path):
-    with open(label_map_path, "r", encoding='utf-8') as fin:
+    with open(label_map_path, "r", encoding="utf-8") as fin:
         lines = fin.readlines()
     old_lines = [line.strip() for line in lines]
     lines = ["O"]

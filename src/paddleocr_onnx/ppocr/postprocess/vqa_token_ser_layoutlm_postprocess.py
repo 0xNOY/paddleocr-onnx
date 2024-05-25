@@ -16,7 +16,8 @@ from ppocr.utils.utility import load_vqa_bio_label_maps
 
 
 class VQASerTokenLayoutLMPostProcess(object):
-    """ Convert between text-label and text-index """
+    """Convert between text-label and text-index"""
+
     def __init__(self, class_path, **kwargs):
         super(VQASerTokenLayoutLMPostProcess, self).__init__()
         label2id_map, self.id2label_map = load_vqa_bio_label_maps(class_path)
@@ -57,17 +58,16 @@ class VQASerTokenLayoutLMPostProcess(object):
         for i in range(pred_idxs.shape[0]):
             for j in range(pred_idxs.shape[1]):
                 if label[i, j] != -100:
-                    label_decode_out_list[i].append(self.id2label_map[label[i,
-                                                                            j]])
-                    decode_out_list[i].append(self.id2label_map[pred_idxs[i,
-                                                                          j]])
+                    label_decode_out_list[i].append(self.id2label_map[label[i, j]])
+                    decode_out_list[i].append(self.id2label_map[pred_idxs[i, j]])
         return decode_out_list, label_decode_out_list
 
     def _infer(self, preds, segment_offset_ids, ocr_infos):
         results = []
 
-        for pred, segment_offset_id, ocr_info in zip(preds, segment_offset_ids,
-                                                     ocr_infos):
+        for pred, segment_offset_id, ocr_info in zip(
+            preds, segment_offset_ids, ocr_infos
+        ):
             pred = np.argmax(pred, axis=1)
             pred = [self.id2label_map[idx] for idx in pred]
 
@@ -97,6 +97,7 @@ class DistillationSerPostProcess(VQASerTokenLayoutLMPostProcess):
     """
     DistillationSerPostProcess
     """
+
     def __init__(self, class_path, model_name=["Student"], key=None, **kwargs):
         super().__init__(class_path, **kwargs)
         if not isinstance(model_name, list):

@@ -25,7 +25,7 @@ logger_initialized = {}
 
 
 @functools.lru_cache()
-def get_logger(name='ppocr', log_file=None, log_level=logging.DEBUG):
+def get_logger(name="ppocr", log_file=None, log_level=logging.DEBUG):
     """Initialize and get a logger by name.
     If the logger has not been initialized, this method will initialize the
     logger by adding one or two handlers, otherwise the initialized logger will
@@ -49,8 +49,8 @@ def get_logger(name='ppocr', log_file=None, log_level=logging.DEBUG):
             return logger
 
     formatter = logging.Formatter(
-        '[%(asctime)s] %(name)s %(levelname)s: %(message)s',
-        datefmt="%Y/%m/%d %H:%M:%S")
+        "[%(asctime)s] %(name)s %(levelname)s: %(message)s", datefmt="%Y/%m/%d %H:%M:%S"
+    )
 
     stream_handler = logging.StreamHandler(stream=sys.stdout)
     stream_handler.setFormatter(formatter)

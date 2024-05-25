@@ -8,7 +8,10 @@ import cv2
 import paddleocr_onnx.tools.infer.predict_cls as predict_cls
 import paddleocr_onnx.tools.infer.predict_det as predict_det
 import paddleocr_onnx.tools.infer.predict_rec as predict_rec
-from paddleocr_onnx.tools.infer.utility import get_minarea_rect_crop, get_rotate_crop_image
+from paddleocr_onnx.tools.infer.utility import (
+    get_minarea_rect_crop,
+    get_rotate_crop_image,
+)
 
 PPOCR_DIR = Path(__file__).parent.resolve()
 
