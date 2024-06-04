@@ -12,7 +12,7 @@ pip install git+https://github.com/0xNOY/paddleocr-onnx.git
 
 ```python
 import cv2
-from paddleocr_onnx impoer PaddleOcrONNX, get_paddleocr_parameter
+from paddleocr_onnx import PaddleOcrONNX, get_paddleocr_parameter
 
 
 param = get_paddleocr_parameter()
